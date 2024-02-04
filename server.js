@@ -11,4 +11,29 @@ app.use(express.urlencoded({ extended: true }));
 // Parse JSON bodies (sent by API Clients)
 app.use(express.json());
 
+// Handle GET requests to fetch users
+app.get('/users', (req, res) => {
+  const users = [
+    {
+      id: 1,
+      name: 'John Doe',
+    },
+    {
+      id: 2,
+      name: 'Bob Williams',
+    },
+    {
+      id: 3,
+      name: 'Shannon Jackson',
+    },
+  ];
+
+  res.send(`
+    <h1 class="text-2xl font-bold my-4">Users</h1>
+    <ul>
+      ${users.map((user) => `<li>${user.name}</li>`).join('')}
+    </ul>
+  `);
+});
+
 app.listen(port, () => console.log(`listening on http://localhost:${port}`));
