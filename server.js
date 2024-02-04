@@ -29,7 +29,9 @@ app.get('/users', async (req, res) => {
   // ];
 
   const limit = +req.query.limit || 10;
-  const response = await fetch(`https://jsonplaceholder.typicode.com/users?_limit=${limit}`);
+  const response = await fetch(
+    `https://jsonplaceholder.typicode.com/users?_limit=${limit}`
+  );
   const users = await response.json();
 
   res.send(`
@@ -37,6 +39,18 @@ app.get('/users', async (req, res) => {
     <ul>
       ${users.map((user) => `<li>${user.name}</li>`).join('')}
     </ul>
+  `);
+});
+
+// Handle POST request for temp conversion
+app.post('/convert', (req, res) => {
+  const fahrenheit = parseFloat(req.body.fahrenheit);
+  const celsius = (fahrenheit - 32) * (5 / 9);
+
+  res.send(`
+  <p>
+    ${fahrenheit}&deg;F is equal to ${celsius.toFixed(2)}&deg;C.
+  </p>
   `);
 });
 
