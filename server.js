@@ -54,4 +54,22 @@ app.post('/convert', (req, res) => {
   `);
 });
 
+let counter = 0;
+
+// Handle GET request for polling example
+app.get('/poll', (req, res) => {
+  counter++;
+
+  const data = { value: counter };
+  res.json(data);
+});
+
+let currentTemperature = 20;
+
+// Handle GET request for weather
+app.get('/get-temperature', (req, res) => {
+  currentTemperature += Math.random() * 2 - 1; // Random temp change
+  res.send(currentTemperature.toFixed(1) + '°C');
+});
+
 app.listen(port, () => console.log(`listening on http://localhost:${port}`));
